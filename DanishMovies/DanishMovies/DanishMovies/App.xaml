@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:DanishMovies.Converters"
+             x:Class="DanishMovies.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- CONVERTERS -->
+            <converters:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+
+            <!-- SIZES -->
+            <OnIdiom x:Key="TrailerListHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>200</OnIdiom.Phone>
+                <OnIdiom.Tablet>400</OnIdiom.Tablet>
+                <OnIdiom.Desktop>400</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="NewsListHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>160</OnIdiom.Phone>
+                <OnIdiom.Tablet>200</OnIdiom.Tablet>
+                <OnIdiom.Desktop>200</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="ListProgressHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>100</OnIdiom.Phone>
+                <OnIdiom.Tablet>200</OnIdiom.Tablet>
+                <OnIdiom.Desktop>300</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="ImageHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>200</OnIdiom.Phone>
+                <OnIdiom.Tablet>300</OnIdiom.Tablet>
+                <OnIdiom.Desktop>300</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="InfoContainerHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>200</OnIdiom.Phone>
+                <OnIdiom.Tablet>300</OnIdiom.Tablet>
+                <OnIdiom.Desktop>300</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="InfoImageContainerWidth"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>150</OnIdiom.Phone>
+                <OnIdiom.Tablet>200</OnIdiom.Tablet>
+                <OnIdiom.Desktop>200</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="NewsImageHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>150</OnIdiom.Phone>
+                <OnIdiom.Tablet>300</OnIdiom.Tablet>
+                <OnIdiom.Desktop>300</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="NewsListImageHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>40</OnIdiom.Phone>
+                <OnIdiom.Tablet>80</OnIdiom.Tablet>
+                <OnIdiom.Desktop>80</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="NewsButtonHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>30</OnIdiom.Phone>
+                <OnIdiom.Tablet>40</OnIdiom.Tablet>
+                <OnIdiom.Desktop>40</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="NormalFontHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>16</OnIdiom.Phone>
+                <OnIdiom.Tablet>18</OnIdiom.Tablet>
+                <OnIdiom.Desktop>18</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="TitleFontHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>12</OnIdiom.Phone>
+                <OnIdiom.Tablet>16</OnIdiom.Tablet>
+                <OnIdiom.Desktop>16</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="CommentFontHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>10</OnIdiom.Phone>
+                <OnIdiom.Tablet>14</OnIdiom.Tablet>
+                <OnIdiom.Desktop>14</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="DetailFontHeight"
+                     x:TypeArguments="x:Double">
+                <OnIdiom.Phone>13</OnIdiom.Phone>
+                <OnIdiom.Tablet>15</OnIdiom.Tablet>
+                <OnIdiom.Desktop>15</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="TrailerTopGridHeight"
+                     x:TypeArguments="GridLength">
+                <OnIdiom.Phone>70*</OnIdiom.Phone>
+                <OnIdiom.Tablet>80*</OnIdiom.Tablet>
+                <OnIdiom.Desktop>80*</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <OnIdiom x:Key="TrailerBottomGridHeight"
+                     x:TypeArguments="GridLength">
+                <OnIdiom.Phone>30*</OnIdiom.Phone>
+                <OnIdiom.Tablet>20*</OnIdiom.Tablet>
+                <OnIdiom.Desktop>20*</OnIdiom.Desktop>
+            </OnIdiom>
+
+            <!-- COLORS -->
+            <Color x:Key="BackgroundColor">#070707</Color>
+            <Color x:Key="LighterBackgroundColor">#141414</Color>
+            <Color x:Key="DetailTextColor">#b4b4b4</Color>
+            <Color x:Key="TitleTextColor">#FFFFFF</Color>
+            <Color x:Key="ForgroundColor">#FFFFFF</Color>
+            <Color x:Key="DetailColor">#282828</Color>
+            <Color x:Key="BadgeColor">#245480</Color>
+            <Color x:Key="RateColor">#008000</Color>
+            <OnPlatform x:Key="SearchBarTextColor"
+                        x:TypeArguments="Color">
+                <On Platform="iOS, UWP">#000000</On>
+                <On Platform="Android">#FFFFFF</On>
+            </OnPlatform>
+            
+            <!-- FONTS -->
+            <OnPlatform x:Key="NormalFont"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS">HelveticaNeue</On>
+                <On Platform="Android">sans-serif</On>
+                <On Platform="UWP">Segoe UI</On>
+            </OnPlatform>
+
+            <OnPlatform x:Key="HeaderFont"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS">HelveticaNeue-Light</On>
+                <On Platform="Android">sans-serif-light</On>
+                <On Platform="UWP">Segoe UI Light</On>
+            </OnPlatform>
+
+            <OnPlatform x:Key="FatFont"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS">HelveticaNeue-CondensedBlack</On>
+                <On Platform="Android">sans-serif-condensed</On>
+                <On Platform="UWP">Segoe UI Black</On>
+            </OnPlatform>
+
+            <!-- STYLES -->
+            <Style TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource NormalFont}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource NormalFontHeight}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource TitleTextColor}" />
+            </Style>
+
+            <Style x:Key="TitleLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource NormalFont}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource TitleFontHeight}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource TitleTextColor}" />
+            </Style>
+
+            <Style x:Key="CommentLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource NormalFont}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource CommentFontHeight}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource DetailTextColor}" />
+            </Style>
+
+            <Style x:Key="DetailLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource NormalFont}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource DetailFontHeight}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource DetailTextColor}" />
+            </Style>
+
+            <Style x:Key="ListIconStyle"
+                   TargetType="Image">
+                <Setter Property="Aspect"
+                        Value="AspectFit" />
+                <Setter Property="HeightRequest"
+                        Value="20" />
+            </Style>
+
+            <Style x:Key="HeaderLabelStyle" 
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource HeaderFont}"/>
+                <Setter Property="FontSize"
+                        Value="26" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource TitleTextColor}" />
+            </Style>
+
+            <Style x:Key="NameLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource HeaderFont}" />
+                <Setter Property="FontSize"
+                        Value="24" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource TitleTextColor}" />
+            </Style>
+
+            <Style x:Key="FatLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource FatFont}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource TitleTextColor}" />
+            </Style>
+
+            <Style TargetType="SearchBar">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource NormalFont}" />
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource SearchBarTextColor}" />
+                <Setter Property="PlaceholderColor"
+                        Value="{StaticResource SearchBarTextColor}" />
+                <Setter Property="CancelButtonColor"
+                        Value="{StaticResource TitleTextColor}" />
+            </Style>
+
+            <Style TargetType="ActivityIndicator">
+                <Setter Property="Color"
+                        Value="{StaticResource ForgroundColor}" />
+            </Style>
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor"
+                        Value="{StaticResource BackgroundColor}" />
+                <Setter Property="BarTextColor"
+                        Value="{StaticResource TitleTextColor}" />
+            </Style>
+
+            <Style TargetType="ContentPage"
+                   ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource BackgroundColor}" />
+            </Style>
+
+            <Style TargetType="ListView">
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource BackgroundColor}" />
+                <Setter Property="SeparatorColor"
+                        Value="{StaticResource DetailColor}" />
+            </Style>
+
+            <Style TargetType="TableView">
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource BackgroundColor}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.MovieNewsPage"
+             xmlns:behaviors="clr-namespace:DanishMovies.Behaviors"
+             xmlns:fe="clr-namespace:FreshEssentials;assembly=FreshEssentials">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <fe:SegmentedButtonGroup OnColor="{StaticResource DetailColor}"
+                                     OffColor="{StaticResource DetailTextColor}"
+                                     SelectedIndex="{Binding SelectIndex, Mode=TwoWay}"
+                                     HeightRequest="{StaticResource NewsButtonHeight}">
+                <fe:SegmentedButtonGroup.LabelStyle>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize"
+                                Value="14" />
+                        <Setter Property="FontAttributes"
+                                Value="Bold" />
+                        <Setter Property="TextColor"
+                                Value="{StaticResource TitleTextColor}" />
+                    </Style>
+                </fe:SegmentedButtonGroup.LabelStyle>
+                <fe:SegmentedButtonGroup.SegmentedButtons>
+                    <fe:SegmentedButton Title="Dfi" />
+                    <fe:SegmentedButton Title="Nordisk" />
+                    <fe:SegmentedButton Title="Filmnyt" />
+                    <fe:SegmentedButton Title="Filmz" />
+                </fe:SegmentedButtonGroup.SegmentedButtons>
+            </fe:SegmentedButtonGroup>
+
+            <ListView x:Name="NewsListView"
+                      ItemsSource="{Binding News}"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      SeparatorVisibility="None"
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="true"
+                      CachingStrategy="RecycleElement">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                      Command="{Binding ShowNewsDetailCommand}"
+                                                      Converter="{StaticResource SelectedItemConverter}" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0"
+                                      BackgroundColor="{StaticResource DetailColor}" />
+                                <StackLayout Grid.Row="1"
+                                             Padding="10"
+                                             Orientation="Horizontal">
+                                    <Image Source="{Binding ImageUrl}"
+                                           WidthRequest="{StaticResource NewsListImageHeight}"
+                                           VerticalOptions="Center" />
+                                    <StackLayout>
+                                        <Label Text="{Binding Headline}"
+                                               LineBreakMode="WordWrap"
+                                               FontAttributes="Bold" />
+                                        <Label Text="{Binding Content}"
+                                               LineBreakMode="TailTruncation"
+                                               Style="{StaticResource DetailLabelStyle}" />
+                                    </StackLayout>
+                                    <Image Source="disclosure.png"
+                                           Style="{StaticResource ListIconStyle}"
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="Center" />
+                                </StackLayout>
+                            </Grid>
+                            <!--<StackLayout BackgroundColor="{StaticResource DetailColor}"
+                                         HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="FillAndExpand">
+                                <StackLayout BackgroundColor="{StaticResource BackgroundColor}"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="FillAndExpand"
+                                             Margin="0,0,0,0.4">
+                                    <StackLayout Padding="10"
+                                                 Orientation="Horizontal">
+                                        <Image Source="{Binding ImageUrl}"
+                                               WidthRequest="{StaticResource NewsListImageHeight}"
+                                               VerticalOptions="Center" />
+                                        <StackLayout>
+                                            <Label Text="{Binding Headline}"
+                                                   LineBreakMode="NoWrap"
+                                                   FontAttributes="Bold" />
+                                            <Label Text="{Binding Content}"
+                                                   LineBreakMode="TailTruncation"
+                                                   Style="{StaticResource DetailLabelStyle}" />
+                                        </StackLayout>
+                                        <Image Source="disclosure.png"
+                                               Style="{StaticResource ListIconStyle}"
+                                               HorizontalOptions="EndAndExpand"
+                                               VerticalOptions="Center" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>-->
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

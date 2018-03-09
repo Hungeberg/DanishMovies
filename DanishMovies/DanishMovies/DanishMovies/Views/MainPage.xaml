@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.MainPage"
+             xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             xmlns:controls="clr-namespace:DanishMovies.Controls"
+             xmlns:templates="clr-namespace:DanishMovies.Views.Templates">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding ShowSearchCommand}"
+                     Icon="search.png"
+                     Text="{Binding Strings[Search_Title]}"
+                     Order="Primary" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10, 0">
+                <Label Text="{Binding Strings[MOVIE_TRAILERS]}"
+                       Style="{StaticResource HeaderLabelStyle}">
+                    <Label.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="UWP">0,10,0,0</On>
+                            <On Platform="iOS, Android">0</On>
+                        </OnPlatform>
+                    </Label.Margin>
+                </Label>
+                <StackLayout IsVisible="{Binding IsLoadTrailersBusy}"
+                             HeightRequest="{StaticResource ListProgressHeight}"
+                             Orientation="Horizontal"
+                             HorizontalOptions="FillAndExpand">
+                    <ActivityIndicator IsRunning="{Binding IsLoadTrailersBusy}"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+                <cv:CarouselViewControl x:Name="MovieTrailersCarousel"
+                                        InterPageSpacing="10"
+                                        Position="0"
+                                        ItemsSource="{Binding Trailers}"
+                                        IsVisible="{Binding IsLoadTrailersBusy, Converter={StaticResource InverseBoolConverter}}"
+                                        ShowArrows="False"
+                                        HeightRequest="{StaticResource TrailerListHeight}"
+                                        HorizontalOptions="FillAndExpand">
+                    <cv:CarouselViewControl.ItemTemplate>
+                        <DataTemplate>
+                            <templates:TrailersItemTemplate />
+                        </DataTemplate>
+                    </cv:CarouselViewControl.ItemTemplate>
+                </cv:CarouselViewControl>
+
+                <Label Text="{Binding Strings[MOVIE_NEWS]}"
+                       Style="{StaticResource HeaderLabelStyle}" />
+                <StackLayout IsVisible="{Binding IsLoadNewsBusy}"
+                             HeightRequest="{StaticResource ListProgressHeight}"
+                             Orientation="Horizontal"
+                             HorizontalOptions="FillAndExpand">
+                    <ActivityIndicator IsRunning="{Binding IsLoadNewsBusy}"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="CenterAndExpand" />
+                </StackLayout>
+                <controls:HorizontalList x:Name="MovieNewsList"
+                                         ListOrientation="Horizontal"
+                                         ItemsSource="{Binding News}"
+                                         IsVisible="{Binding IsLoadNewsBusy, Converter={StaticResource InverseBoolConverter}}"
+                                         SelectedCommand="{Binding ShowNewsDetailCommand}"
+                                         HeightRequest="{StaticResource NewsListHeight}">
+                    <controls:HorizontalList.ItemTemplate>
+                        <DataTemplate>
+                            <templates:NewsItemTemplate />
+                        </DataTemplate>
+                    </controls:HorizontalList.ItemTemplate>
+                </controls:HorizontalList>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+                          BackgroundColor="{StaticResource DetailColor}"/>
+                    <StackLayout Grid.Row="1"
+                                 Padding="0,5"
+                                 Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding Strings[See_all_news]}"
+                               FontAttributes="Bold" />
+                        <Image Source="disclosure.png"
+                               Style="{StaticResource ListIconStyle}"
+                               HorizontalOptions="EndAndExpand" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowMovieNewsCommand}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

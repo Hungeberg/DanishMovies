@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.SearchPage"
+             xmlns:effects="clr-namespace:DanishMovies.Effects;assembly=DanishMovies"
+             xmlns:behaviors="clr-namespace:DanishMovies.Behaviors"
+             Title="{Binding Strings[Search_Title]}">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <StackLayout.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="Android, UWP">0,10,0,0</On>
+                </OnPlatform>
+            </StackLayout.Padding>
+            <SearchBar x:Name="SearchSearchBar"
+                       Placeholder="{Binding Strings[Search_Placeholder]}"
+                       Text="{Binding SearchText}"
+                       SearchCommand="{Binding SearchCommand}"
+                       MinimumWidthRequest="200"
+                       HeightRequest="40">
+                <SearchBar.Effects>
+                    <effects:SearchBarBackgroundEffect />
+                </SearchBar.Effects>
+                <SearchBar.WidthRequest>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS">326</On>
+                    </OnPlatform>
+                </SearchBar.WidthRequest>
+            </SearchBar>
+            <ListView x:Name="SearchResultListView"
+                      ItemsSource="{Binding SearchResults}"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      SeparatorVisibility="None"
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="true"
+                      CachingStrategy="RecycleElement">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                      Command="{Binding ItemSelectedCommand}"
+                                                      Converter="{StaticResource SelectedItemConverter}" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="{StaticResource DetailColor}"
+                                         HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="FillAndExpand">
+                                <StackLayout BackgroundColor="{StaticResource BackgroundColor}"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="FillAndExpand"
+                                             Margin="0,0,0,0.4">
+                                    <StackLayout Padding="10"
+                                                 Orientation="Horizontal">
+                                        <StackLayout>
+                                            <Label Text="{Binding Name}"
+                                                   LineBreakMode="NoWrap"
+                                                   FontAttributes="Bold" />
+                                            <Label Text="{Binding SearchTypeDisplay}"
+                                                   LineBreakMode="NoWrap"
+                                                   Style="{StaticResource DetailLabelStyle}"/>
+                                        </StackLayout>
+                                        <Image Source="disclosure.png"
+                                               Style="{StaticResource ListIconStyle}"
+                                               HorizontalOptions="EndAndExpand"
+                                               VerticalOptions="Center"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

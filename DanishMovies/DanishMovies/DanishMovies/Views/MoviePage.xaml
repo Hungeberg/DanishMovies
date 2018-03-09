@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.MoviePage"
+             xmlns:design="clr-namespace:DanishMovies;assembly=DanishMovies"
+             xmlns:controls="clr-namespace:DanishMovies.Controls"
+             BindingContext="{x:Static design:ViewModelLocator.MovieViewModel}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding HomeCommand}"
+                     Icon="search.png"
+                     Text="{Binding Strings[Search_Title]}"
+                     Order="Primary" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <!-- PROGRESS -->
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"
+                               VerticalOptions="CenterAndExpand" />
+            <!-- MAIN VIEW -->
+            <ScrollView x:Name="MovieMainView"
+                        IsVisible="False">
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!-- TITLE -->
+                    <Label Grid.Row="0"
+                           Text="{Binding Movie.Title}"
+                           LineBreakMode="WordWrap"
+                           Style="{StaticResource NameLabelStyle}">
+                        <Label.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="UWP">10</On>
+                                <On Platform="iOS, Android">10,0,10,10</On>
+                            </OnPlatform>
+                        </Label.Margin>
+                    </Label>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="1"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasInfo}" />
+                    <!-- INFO -->
+                    <StackLayout Grid.Row="2"
+                                 Padding="10"
+                                 Spacing="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasInfo}">
+                        <Image x:Name="MovieImage"
+                               Source="{Binding Movie.ImageUrl}"
+                               IsVisible="{Binding HasImage}"
+                               WidthRequest="{StaticResource InfoImageContainerWidth}"
+                               Aspect="AspectFit"
+                               VerticalOptions="Start">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="MovieImageTapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <StackLayout IsVisible="{Binding HasDescription}"
+                                     HorizontalOptions="End">
+                            <Label x:Name="MovieDescriptionLabel"
+                                   Text="{Binding ShortDescription}"
+                                   LineBreakMode="WordWrap"
+                                   FontSize="{StaticResource DetailFontHeight}" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDescriptionCommand}"
+                                                      CommandParameter="{Binding Movie}" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="3"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasImages}" />
+                    <!-- IMAGES -->
+                    <StackLayout Grid.Row="4"
+                                 Padding="10"
+                                 IsVisible="{Binding HasImages}">
+                        <Label Text="{Binding Strings[Images]}"
+                               FontAttributes="Bold" />
+                        <controls:HorizontalList ListOrientation="Horizontal"
+                                                 ItemsSource="{Binding Movie.Images}"
+                                                 SelectedCommand="{Binding ShowImageCommand}"
+                                                 HeightRequest="100">
+                            <controls:HorizontalList.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding PathMicr}"
+                                           Aspect="AspectFit"
+                                           WidthRequest="100" />
+                                </DataTemplate>
+                            </controls:HorizontalList.ItemTemplate>
+                        </controls:HorizontalList>
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="5"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasReleaseYear}" />
+                    <!-- RELEASE YEAR -->
+                    <StackLayout Grid.Row="6"
+                                 Padding="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasReleaseYear}">
+                        <Label Text="{Binding Strings[Released]}"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Movie.ReleaseYear}"
+                               HorizontalOptions="EndAndExpand"
+                               Style="{StaticResource DetailLabelStyle}" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="7"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasMovieLength}" />
+                    <!-- MOVIE LENGTH -->
+                    <StackLayout Grid.Row="8"
+                                 Padding="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasMovieLength}">
+                        <Label Text="{Binding Strings[Duration]}"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Movie.LengthInMin, StringFormat='{0} min'}"
+                               HorizontalOptions="EndAndExpand"
+                               Style="{StaticResource DetailLabelStyle}" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="9"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasPremiereInfo}" />
+                    <!-- PREMIERE -->
+                    <StackLayout Grid.Row="10"
+                                 Padding="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasPremiereInfo}">
+                        <Label Text="{Binding Strings[Premiere]}"
+                               FontAttributes="Bold" />
+                        <Image Source="disclosure.png"
+                               Style="{StaticResource ListIconStyle}"
+                               HorizontalOptions="EndAndExpand" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowPremiereCommand}"
+                                                  CommandParameter="{Binding Movie}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="11"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasCategory}" />
+                    <!-- CATEGORY -->
+                    <StackLayout Grid.Row="12"
+                                 Padding="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasCategory}">
+                        <Label Text="{Binding Strings[Category]}"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Movie.Category}"
+                               HorizontalOptions="EndAndExpand"
+                               Style="{StaticResource DetailLabelStyle}" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="13"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasMovieTypes}" />
+                    <!-- MOVIE TYPES -->
+                    <StackLayout Grid.Row="14"
+                                 Padding="10"
+                                 IsVisible="{Binding HasMovieTypes}">
+                        <Label Text="{Binding Strings[Movie_Type]}"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Movie.MovieTypes}"
+                               Style="{StaticResource DetailLabelStyle}"
+                               LineBreakMode="WordWrap" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="15"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasOriginalTitle}" />
+                    <!-- ORIGINAL TITLE -->
+                    <StackLayout Grid.Row="16"
+                                 Padding="10"
+                                 IsVisible="{Binding HasOriginalTitle}">
+                        <Label Text="{Binding Strings[Original_Title]}"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Movie.OriginalTitle}"
+                               Style="{StaticResource DetailLabelStyle}"
+                               LineBreakMode="WordWrap" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="17"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasComment}" />
+                    <!-- COMMENT -->
+                    <StackLayout Grid.Row="18"
+                                 Padding="10"
+                                 IsVisible="{Binding HasComment}"
+                                 HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding Strings[Comment]}"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Movie.Comment}"
+                               Style="{StaticResource DetailLabelStyle}"
+                               LineBreakMode="WordWrap" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="19"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasMovieFormat}" />
+                    <!-- MOVIE FORMAT -->
+                    <StackLayout Grid.Row="20"
+                                 Padding="10"
+                                 IsVisible="{Binding HasMovieFormat}">
+                        <Label Text="{Binding Strings[Format]}"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Movie.FilmFormat}"
+                               Style="{StaticResource DetailLabelStyle}"
+                               LineBreakMode="WordWrap" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="21"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasClassification}" />
+                    <!-- CENSORSHIP / CLASSIFICATION -->
+                    <StackLayout Grid.Row="22"
+                                 Padding="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasClassification}">
+                        <Label Text="{Binding Strings[R_rating]}"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Movie.Classification}"
+                               HorizontalOptions="EndAndExpand"
+                               Style="{StaticResource DetailLabelStyle}" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="23"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasCountries}" />
+                    <!-- COUNTRIES -->
+                    <StackLayout Grid.Row="24"
+                                 Padding="10"
+                                 IsVisible="{Binding HasCountries}">
+                        <Label Text="{Binding Strings[Production_Countries]}"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Movie.Countries}"
+                               Style="{StaticResource DetailLabelStyle}"
+                               LineBreakMode="WordWrap" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="25"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasCredits}" />
+                    <!-- MOVIE CREDITS -->
+                    <Label Grid.Row="26"
+                           Text="{Binding Strings[Movie_Credits]}"
+                           Style="{StaticResource TitleLabelStyle}"
+                           TextColor="{StaticResource DetailTextColor}"
+                           IsVisible="{Binding HasCredits}"
+                           Margin="10,10,10,0"
+                           FontAttributes="Bold" />
+                    <!-- PERSON CREDITS -->
+                    <StackLayout Grid.Row="27"
+                                 Padding="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasPersonCredits}">
+                        <Label Text="{Binding Strings[CreditsPeople]}"
+                               FontAttributes="Bold" />
+                        <Frame HorizontalOptions="EndAndExpand"
+                               BackgroundColor="{StaticResource BadgeColor}"
+                               Padding="4"
+                               CornerRadius="5"
+                               Margin="10,0">
+                            <Label Text="{Binding Movie.PersonCredits.Count}"
+                                   HorizontalOptions="EndAndExpand"
+                                   FontSize="11" />
+                        </Frame>
+                        <Image Source="disclosure.png"
+                               Style="{StaticResource ListIconStyle}"
+                               HorizontalOptions="End" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowCreditsCommand}"
+                                                  CommandParameter="{Binding Movie}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="28"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasProductionCompanies}" />
+                    <!-- PRODUCTION COMPANIES -->
+                    <StackLayout Grid.Row="29"
+                                 Padding="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasProductionCompanies}">
+                        <Label Text="{Binding Strings[Production_Companies]}"
+                               FontAttributes="Bold" />
+                        <Frame HorizontalOptions="EndAndExpand"
+                               BackgroundColor="{StaticResource BadgeColor}"
+                               Padding="4"
+                               CornerRadius="5"
+                               Margin="10,0">
+                            <Label Text="{Binding Movie.ProductionCompanies.Count}"
+                                   HorizontalOptions="EndAndExpand"
+                                   FontSize="11" />
+                        </Frame>
+                        <Image Source="disclosure.png"
+                               Style="{StaticResource ListIconStyle}"
+                               HorizontalOptions="End" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowProductionCompaniesCommand}"
+                                                  CommandParameter="{Binding Movie}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="30"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasDistributionCompanies}" />
+                    <!-- PRODUCTION COMPANIES -->
+                    <StackLayout Grid.Row="31"
+                                 Padding="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasDistributionCompanies}">
+                        <Label Text="{Binding Strings[Distribution_Companies]}"
+                               FontAttributes="Bold" />
+                        <Frame HorizontalOptions="EndAndExpand"
+                               BackgroundColor="{StaticResource BadgeColor}"
+                               Padding="4"
+                               CornerRadius="5"
+                               Margin="10,0">
+                            <Label Text="{Binding Movie.DistributionCompanies.Count}"
+                                   HorizontalOptions="EndAndExpand"
+                                   FontSize="11" />
+                        </Frame>
+                        <Image Source="disclosure.png"
+                               Style="{StaticResource ListIconStyle}"
+                               HorizontalOptions="End" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowDistributionCompaniesCommand}"
+                                                  CommandParameter="{Binding Movie}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,23 @@
+﻿{
+  "dependencies": {
+    "CarouselView.FormsPlugin": "4.4.6",
+    "FreshEssentials": "2.1.3",
+    "I18NPortable": "0.3.1",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "6.0.1",
+    "PCLStorage": "1.0.2",
+    "Plugin.MediaManager.Forms": "0.4.5",
+    "Xam.Plugin.Version": "1.0.0",
+    "Xamarin.Forms": "2.4.0.91020"
+  },
+  "frameworks": {
+    "uap10.0.10586": {}
+  },
+  "runtimes": {
+    "win10-arm": {},
+    "win10-arm-aot": {},
+    "win10-x86": {},
+    "win10-x86-aot": {},
+    "win10-x64": {},
+    "win10-x64-aot": {}
+  }
+}

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.MenuPage"
+             Icon="menu.png"
+             Title=" ">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="Android, UWP">0,0,0,0</On>
+            <On Platform="iOS">0,20,0,0</On>
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="2" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="2" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="2" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                  BackgroundColor="{StaticResource DetailColor}" />
+            <StackLayout Grid.Row="1"
+                         x:Name="homeMenuItem"
+                         Padding="10"
+                         Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         BackgroundColor="{StaticResource LighterBackgroundColor}">
+                <Label Text="{Binding Strings[Start]}"
+                       VerticalOptions="Center"/>
+                <Image Source="disclosure.png"
+                       Style="{StaticResource ListIconStyle}"
+                       HorizontalOptions="EndAndExpand" />
+            </StackLayout>
+            <Grid Grid.Row="2"
+                  BackgroundColor="{StaticResource DetailColor}" />
+            <StackLayout Grid.Row="3"
+                         x:Name="aboutMenuItem"
+                         Padding="10"
+                         Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand">
+                <Label Text="{Binding Strings[About]}"
+                       VerticalOptions="Center"/>
+                <Image Source="disclosure.png"
+                       Style="{StaticResource ListIconStyle}"
+                       HorizontalOptions="EndAndExpand" />
+            </StackLayout>
+            <Grid Grid.Row="4"
+                  BackgroundColor="{StaticResource DetailColor}" />
+            <StackLayout Grid.Row="5"
+                         Padding="10"
+                         Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand">
+                <Label Text="{Binding Strings[Rate_App]}"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RateWebCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <Grid Grid.Row="6"
+                  BackgroundColor="{StaticResource DetailColor}" />
+            <StackLayout Grid.Row="7"
+                         Padding="10"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                <Label x:Name="AppVersionLabel"
+                       Text="Version 2.0.1"
+                       Style="{StaticResource DetailLabelStyle}" 
+                       VerticalOptions="EndAndExpand" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

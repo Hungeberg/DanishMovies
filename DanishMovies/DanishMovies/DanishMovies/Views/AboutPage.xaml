@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.AboutPage"
+             Title="{Binding Strings[About]}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0"
+                   Source="splash.png"
+                   Margin="10,10,10,0"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Aspect="AspectFit"
+                   HeightRequest="50" />
+            <ScrollView Grid.Row="1">
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!-- APP NAME -->
+                    <Label Grid.Row="0"
+                           x:Name="AppNameLabel"
+                           Text="Danish Movies"
+                           Margin="10"
+                           LineBreakMode="WordWrap"
+                           Style="{StaticResource NameLabelStyle}" />
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="1"
+                          BackgroundColor="{StaticResource DetailColor}" />
+                    <!-- APP INFO -->
+                    <StackLayout Grid.Row="2"
+                                 Orientation="Vertical">
+                        <Label x:Name="AppInfoLabel"
+                               Text=""
+                               Margin="10,5"
+                               LineBreakMode="WordWrap" />
+                        <Button Margin="10,0,10,0"
+                                Text="Xamarin.com"
+                                Command="{Binding XamarinWebCommand}"
+                                BackgroundColor="{StaticResource BadgeColor}"
+                                TextColor="White" />
+                        <Label x:Name="AppCodeShareLabel"
+                               Text=""
+                               Margin="10,5"
+                               LineBreakMode="WordWrap" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="3"
+                          BackgroundColor="{StaticResource DetailColor}" />
+                    <!-- DFI USE -->
+                    <StackLayout Grid.Row="4"
+                                 Orientation="Vertical">
+                        <Label x:Name="AppDfiUseLabel"
+                               Text=""
+                               Margin="10,5"
+                               LineBreakMode="WordWrap" />
+                        <Button Margin="10,0,10,10"
+                                Text="dfi.dk"
+                                Command="{Binding DfiWebCommand}"
+                                BackgroundColor="{StaticResource BadgeColor}"
+                                TextColor="White" />
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="5"
+                          BackgroundColor="{StaticResource DetailColor}" />
+                    <!-- RATE APP -->
+                    <Button Grid.Row="6"
+                            Margin="10"
+                            Text="{Binding Strings[Rate_App]}"
+                            Command="{Binding RateWebCommand}"
+                            BackgroundColor="{StaticResource RateColor}"
+                            TextColor="White" />
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

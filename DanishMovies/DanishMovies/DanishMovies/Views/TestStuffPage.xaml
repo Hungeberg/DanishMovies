@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.TestStuffPage">
+    <ContentPage.Content>
+        <!--<StackLayout VerticalOptions="FillAndExpand"
+                     Spacing="0">
+            <StackLayout Padding="10"
+                         Orientation="Horizontal"
+                         BackgroundColor="Black">
+                <Label Text="Movies"
+                       FontAttributes="Bold" />
+                <Frame HorizontalOptions="EndAndExpand"
+                       BackgroundColor="#245480"
+                       Padding="4"
+                       CornerRadius="5"
+                       Margin="10,0">
+                    <Label Text="20"
+                           FontSize="11"
+                           TextColor="White" />
+                </Frame>
+                <Image Source="disclosure.png"
+                       Aspect="AspectFit"
+                       HeightRequest="20"
+                       HorizontalOptions="End" />
+            </StackLayout>
+            <StackLayout Padding="10"
+                         Orientation="Horizontal"
+                         BackgroundColor="Black">
+                <Label Text="Movies"
+                       FontAttributes="Bold" />
+                <Frame HorizontalOptions="EndAndExpand"
+                       BackgroundColor="#245480"
+                       Padding="4"
+                       CornerRadius="5"
+                       Margin="10,0">
+                    <Label Text="48"
+                           FontSize="11"
+                           TextColor="White" />
+                </Frame>
+                <Image Source="disclosure2.png"
+                       Aspect="AspectFit"
+                       HeightRequest="20"
+                       HorizontalOptions="End" />
+            </StackLayout>
+            <StackLayout HeightRequest="160"                         
+                         Orientation="Horizontal"
+                         Spacing="0">
+                <Grid WidthRequest="250">
+                    <Image Source="person.png"
+                           Aspect="AspectFill" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="8*" />
+                            <RowDefinition Height="7*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1"
+                              BackgroundColor="Black"
+                              Opacity="0.6" />
+                        <StackLayout Grid.Row="1"
+                                     Padding="10"
+                                     VerticalOptions="FillAndExpand"
+                                     HorizontalOptions="FillAndExpand">
+                            <Label Text="Få inspiration til at formidle til børn og unge"
+                                   LineBreakMode="WordWrap"
+                                   FontSize="16"
+                                   VerticalOptions="Start"/>
+                            <StackLayout Orientation="Horizontal"
+                                         VerticalOptions="EndAndExpand">
+                                <Label Text="27 November 2017 |"
+                                       TextColor="Gray"
+                                       FontSize="10"
+                                       HorizontalOptions="Start" />
+                                <Label Text="DFI"
+                                       TextColor="Gray"
+                                       FontSize="10"
+                                       HorizontalOptions="End" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+            </StackLayout>
+        </StackLayout>-->
+
+        <StackLayout VerticalOptions="FillAndExpand">
+            <StackLayout Padding="10,0"
+                         Orientation="Horizontal">
+                <Label Text="Preben Kaas"
+                       LineBreakMode="WordWrap"
+                       FontFamily="sans-serif-light"
+                       FontSize="24" />
+            </StackLayout>
+            <StackLayout Padding="10,0">
+                <Grid>
+                    <Image Source="person.png"
+                           Aspect="AspectFit"
+                           HeightRequest="300" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3.5*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1"
+                              BackgroundColor="Black"
+                              Opacity="0.6" />
+                        <StackLayout Grid.Row="1"
+                                     Padding="10"
+                                     VerticalOptions="FillAndExpand"
+                                     HorizontalOptions="FillAndExpand">
+                            <Label Text="Skuespiller. Født 30/3 1930, død 27/3 1981 - 50 år gammel. Gift fire gange. 3º i 1970 med Anne Marie Lie (f. 1945) - ægteskabet opløst, 4º i 1979 med skuespiller Lisbeth Dahl (f. 1946). Far til skuespiller Nikolaj Lie Kaas (f. 1973)."
+                                   LineBreakMode="WordWrap"
+                                   TextColor="White"
+                                   FontSize="14" />
+                            <Label Text="(1930 - 1981) alder 54"
+                                   TextColor="Gray"
+                                   FontSize="10" />
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+            </StackLayout>
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout Padding="10,0"
+                                 Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand"
+                                 HeightRequest="100">
+                        <Frame BackgroundColor="Blue"
+                               HorizontalOptions="StartAndExpand">
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Padding="10,0"
+                                 Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand">
+                        <Label Text="Film"
+                               LineBreakMode="WordWrap"
+                               FontSize="14" />
+                        <Image Source="disclosure.png"
+                               HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

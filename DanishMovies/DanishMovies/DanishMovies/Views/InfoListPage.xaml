@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.InfoListPage"
+             xmlns:behaviors="clr-namespace:DanishMovies.Behaviors"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding HomeCommand}"
+                     Icon="search.png"
+                     Text="{Binding Strings[Search_Title]}"
+                     Order="Primary" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ListView x:Name="InfoListView"
+                  ItemsSource="{Binding BaseInfoList}"
+                  SeparatorVisibility="None"
+                  VerticalOptions="FillAndExpand"
+                  HasUnevenRows="true"
+                  CachingStrategy="RecycleElement">
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                  Command="{Binding ItemSelectedCommand}"
+                                                  Converter="{StaticResource SelectedItemConverter}" />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0"
+                                  BackgroundColor="{StaticResource DetailColor}" />
+                            <StackLayout Grid.Row="1"
+                                         Padding="10"
+                                         Orientation="Horizontal">
+                                <StackLayout>
+                                    <Label Text="{Binding Name}"
+                                           LineBreakMode="WordWrap"
+                                           FontAttributes="Bold" />
+                                    <Label Text="{Binding TypeDescription}"
+                                           LineBreakMode="WordWrap"
+                                           Style="{StaticResource DetailLabelStyle}" />
+                                </StackLayout>
+                                <Image Source="disclosure.png"
+                                       Style="{StaticResource ListIconStyle}"
+                                       HorizontalOptions="EndAndExpand"
+                                       VerticalOptions="Center" />
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

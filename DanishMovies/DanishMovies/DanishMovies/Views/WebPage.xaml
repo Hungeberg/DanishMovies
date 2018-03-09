@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.WebPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <ActivityIndicator x:Name="ProgressIndicator"
+                               IsVisible="True"
+                               IsRunning="True"
+                               VerticalOptions="CenterAndExpand" />
+            <WebView x:Name="Browser"
+                     Source="{Binding WebUrl}"
+                     Navigating="WebOnNavigating"
+                     Navigated="WebOnEndNavigating"
+                     IsVisible="False"
+                     WidthRequest="1000"
+                     HeightRequest="1000" />
+            <StackLayout Orientation="Horizontal"
+                         Padding="20,5,0,10"
+                         Spacing="30">
+                <Image x:Name="BackImage"
+                       Source="back.png"
+                       Aspect="AspectFit"
+                       Opacity="0.1"
+                       IsEnabled="False"
+                       HeightRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BackTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image x:Name="ForwardImage"
+                       Source="forward.png"
+                       Aspect="AspectFit"
+                       Opacity="0.1"
+                       IsEnabled="False"
+                       HeightRequest="25"
+                       HorizontalOptions="End">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ForwardTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

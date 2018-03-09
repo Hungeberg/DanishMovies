@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.DescriptionPage"
+             xmlns:design="clr-namespace:DanishMovies;assembly=DanishMovies"
+             BindingContext="{x:Static design:ViewModelLocator.DescriptionViewModel}"
+             Title="{Binding Name}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding HomeCommand}"
+                     Icon="search.png"
+                     Text="{Binding Strings[Search_Title]}"
+                     Order="Primary" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <StackLayout Padding="10,10,10,0"
+                         HorizontalOptions="FillAndExpand"
+                         IsVisible="{Binding HasImage}">
+                <Image Source="{Binding ImageUrl}"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       HeightRequest="{StaticResource ImageHeight}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowImageCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+            <ScrollView>
+                <StackLayout Padding="10">
+                    <Label Text="{Binding Description}"
+                           LineBreakMode="WordWrap"
+                           HorizontalOptions="StartAndExpand" />
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

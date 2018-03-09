@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.Templates.TrailersItemTemplate"
+             x:Name="TrailerView">
+    <ContentView.Content>
+        <Grid>
+            <Image Source="{Binding ImageUrl}"
+                   Aspect="AspectFill" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{StaticResource TrailerTopGridHeight}" />
+                    <RowDefinition Height="{StaticResource TrailerBottomGridHeight}" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="MoviePlayGrid"
+                      Grid.Row="0">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PlayTrailerCommand}"
+                                              CommandParameter="{Binding BindingContext, Source={x:Reference TrailerView}}" />
+                    </Grid.GestureRecognizers>
+                    <Image Source="play.png"
+                           WidthRequest="80"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Grid>
+                <Grid Grid.Row="1"
+                      BackgroundColor="Black"
+                      Opacity="0.5" />
+                <StackLayout x:Name="MovieInfoStack"
+                             Grid.Row="1"
+                             Padding="6, 4"
+                             VerticalOptions="FillAndExpand"
+                             HorizontalOptions="FillAndExpand">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowMovieInfoCommand}"
+                                              CommandParameter="{Binding BindingContext, Source={x:Reference TrailerView}}" />
+                    </StackLayout.GestureRecognizers>
+                    <Label Text="{Binding BindingContext.Title, Source={x:Reference TrailerView}}"
+                           Style="{StaticResource TitleLabelStyle}">
+                    </Label>
+                    <Label Text="{Binding BindingContext.Comment, Source={x:Reference TrailerView}}"
+                           Style="{StaticResource CommentLabelStyle}">
+                        <Label.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="Android, UWP">0,-8,0,0</On>
+                                <On Platform="iOS">0,-4,0,0</On>
+                            </OnPlatform>
+                        </Label.Margin>
+                    </Label>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DanishMovies.Views.PersonPage"
+             xmlns:design="clr-namespace:DanishMovies;assembly=DanishMovies"
+             xmlns:controls="clr-namespace:DanishMovies.Controls"
+             BindingContext="{x:Static design:ViewModelLocator.PersonViewModel}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding HomeCommand}"
+                     Icon="search.png"
+                     Text="{Binding Strings[Search_Title]}"
+                     Order="Primary" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <!-- PROGRESS -->
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"
+                               VerticalOptions="CenterAndExpand"/>
+            <!-- MAIN VIEW -->
+            <ScrollView x:Name="PersonMainView"
+                        IsVisible="False">
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!-- NAME -->
+                    <Label Grid.Row="0"
+                           Text="{Binding Person.Name}"
+                           LineBreakMode="WordWrap"
+                           Style="{StaticResource NameLabelStyle}">
+                        <Label.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="UWP">10</On>
+                                <On Platform="iOS, Android">10,0,10,10</On>
+                            </OnPlatform>
+                        </Label.Margin>
+                    </Label>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="1"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasInfo}"/>
+                    <!-- INFO -->
+                    <StackLayout Grid.Row="2"
+                                 Padding="10"
+                                 Spacing="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasInfo}">
+                        <Image Source="{Binding Person.ImageUrl}"
+                               IsVisible="{Binding HasImage}"
+                               WidthRequest="{StaticResource InfoImageContainerWidth}"
+                               Aspect="AspectFit"
+                               VerticalOptions="Start">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="PersonImageTapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <StackLayout HorizontalOptions="End">
+                            <Label x:Name="PersonDescriptionLabel"
+                                   Text="{Binding ShortDescription}"
+                                   LineBreakMode="WordWrap"
+                                   FontSize="{StaticResource DetailFontHeight}" />
+                            <Label x:Name="PersonAgeLabel"
+                                   FormattedText="{Binding FormattedAge}"
+                                   VerticalOptions="EndAndExpand" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDescriptionCommand}"
+                                                      CommandParameter="{Binding Person}" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="3"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasImages}"/>
+                    <!-- IMAGES -->
+                    <StackLayout Grid.Row="4"
+                                 Padding="10"
+                                 IsVisible="{Binding HasImages}">
+                        <Label Text="{Binding Strings[Images]}"
+                               FontAttributes="Bold" />
+                        <controls:HorizontalList ListOrientation="Horizontal"
+                                                 ItemsSource="{Binding Person.Images}"
+                                                 SelectedCommand="{Binding ShowImageCommand}"
+                                                 HeightRequest="100">
+                            <controls:HorizontalList.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding PathMicr}"
+                                           Aspect="AspectFit"
+                                           WidthRequest="100" />
+                                </DataTemplate>
+                            </controls:HorizontalList.ItemTemplate>
+                        </controls:HorizontalList>
+                    </StackLayout>
+                    <!-- SEPARATOR -->
+                    <Grid Grid.Row="5"
+                          BackgroundColor="{StaticResource DetailColor}"
+                          IsVisible="{Binding HasMovies}"/>
+                    <!-- MOVIES -->
+                    <StackLayout Grid.Row="6"
+                                 Padding="10"
+                                 Orientation="Horizontal"
+                                 IsVisible="{Binding HasMovies}">
+                        <Label Text="{Binding Strings[Movies]}"
+                               LineBreakMode="NoWrap"
+                               FontAttributes="Bold" />
+                        <Frame HorizontalOptions="EndAndExpand"
+                               BackgroundColor="{StaticResource BadgeColor}"
+                               Padding="4"
+                               CornerRadius="5"
+                               Margin="10,0">
+                            <Label Text="{Binding Person.FilmCredits.Count}"
+                                   HorizontalOptions="EndAndExpand"
+                                   FontSize="11" />
+                        </Frame>
+                        <Image Source="disclosure.png"
+                               Style="{StaticResource ListIconStyle}"
+                               HorizontalOptions="End" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowMovieListCommand}"
+                                                  CommandParameter="{Binding Person}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
